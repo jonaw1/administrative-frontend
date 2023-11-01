@@ -5,7 +5,7 @@ import { User } from "../shared/types";
 
 declare module "express-session" {
   interface SessionData {
-    user: User;
+    user?: User;
   }
 }
 
