@@ -1,0 +1,19 @@
+extends base-template.pug 
+
+block content 
+    .container
+        form(action="/forgot-pw", method="post")
+            h1.mb-3 Passwort vergessen?
+            .form-group.mb-3
+                label(for="emailInput") Email 
+                    span.text-danger *
+                input#emailInput.form-control(type="email", placeholder="Email eingeben", name="email", required)
+            .form-group.mb-3
+                label(for="passwordInput1") Neues Passwort 
+                    span.text-danger *
+                input#passwordInput1.form-control.mb-1(type="password", placeholder="Passwort eingeben", aria-describedby="forgotPassword", name="password", required)
+            .form-group.mb-4
+                label(for="passwordInput2") Neues Passwort wiederholen 
+                    span.text-danger *
+                input#passwordInput2.form-control.mb-1(type="password", placeholder="Passwort eingeben", aria-describedby="forgotPassword", name="password", required)
+            button.btn.btn-primary.w-50.mb-1(type="submit") Passwort ändern

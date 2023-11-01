@@ -1,0 +1,21 @@
+extends base-template.pug 
+
+block content 
+    .container
+        form(action="/register", method="post")
+            h1.mb-3 Willkommen!
+            .form-group.mb-3
+                label(for="emailInput") Email 
+                    span.text-danger *
+                input#emailInput.form-control(type="email", placeholder="Email eingeben", name="email", required)
+            .form-group.mb-3
+                label(for="passwordInput1") Passwort 
+                    span.text-danger *
+                input#passwordInput1.form-control(type="password", placeholder="Passwort eingeben", aria-describedby="forgotPassword", name="password", required)
+            .form-group.mb-4
+                label(for="passwordInput2") Passwort wiederholen 
+                    span.text-danger *
+                input#passwordInput2.form-control(type="password", placeholder="Passwort eingeben", aria-describedby="forgotPassword", required)
+            button.btn.btn-primary.w-50.mb-1(type="submit") Registrieren
+            p Sie haben bereits einen Account? 
+                a(href="/login") Anmelden

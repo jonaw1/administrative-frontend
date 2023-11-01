@@ -1,0 +1,21 @@
+extends base-template.pug 
+
+block content 
+    .container
+        form(action="/login", method="post")
+            h1.mb-3 Willkommen zurück!
+            .form-group.mb-3
+                label(for="emailInput") Email 
+                    span.text-danger *
+                input#emailInput.form-control(type="email", placeholder="Email eingeben", name="email", required)
+            .form-group.mb-3
+                label(for="passwordInput") Passwort 
+                    span.text-danger *
+                input#passwordInput.form-control.mb-1(type="password", placeholder="Passwort eingeben", aria-describedby="forgotPassword", name="password", required)
+                a#forgotPassword(href="/forgot-pw") Passwort vergessen?
+            .form-check.mb-4
+                input.form-check-input(type="checkbox", id="stayLoggedIn", name="stayLoggedIn")
+                label.form-check-label(for="stayLoggedIn") Angemeldet bleiben?
+            button.btn.btn-primary.w-50.mb-1(type="submit") Anmelden
+            p Sie benötigen einen Account? 
+                a(href="/register") Registrieren
