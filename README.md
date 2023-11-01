@@ -6,3 +6,4 @@
 - [ ] Make tree view for courses, assignments, questions
 - [ ] Make it possible to upload config for questions
 - [ ] Add eslint and prettier
+- [ ] Design!?
