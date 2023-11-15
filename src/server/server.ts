@@ -6,7 +6,7 @@ import authRoutes from './routes/authRoutes';
 import adminRoutes from './routes/adminRoutes';
 import session from 'express-session';
 import { startDatabase } from './db/database';
-const KnexSessionStore = require('connect-session-knex')(session);
+import KnexSessionStore, { StoreFactory } from 'connect-session-knex';
 import { db } from './db/database';
 import flash from 'connect-flash';
 import { User } from './shared/types';
@@ -25,9 +25,10 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+const KnexStore: StoreFactory = KnexSessionStore(session);
 app.use(
   session({
-    store: new KnexSessionStore({
+    store: new KnexStore({
       knex: db,
       tablename: 'sessions',
       createtable: true
