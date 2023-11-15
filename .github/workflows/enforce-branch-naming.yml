@@ -1,0 +1,20 @@
+name: Enforce Branch Naming
+
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  enforce-branch-naming:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check Branch Naming
+        run: |
+          BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+          USERNAME=$(echo "${{ github.actor }}" | tr -d '\n')
+          if [[ ! $BRANCH_NAME =~ ^$USERNAME/ ]]; then
+            echo "error: Branch name must start with $USERNAME/."
+            exit 1
+          fi

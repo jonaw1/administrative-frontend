@@ -1,0 +1,21 @@
+name: Auto Assign PR Creator
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Assignee
+        run: |
+          PR_CREATOR=$(gh pr view ${{ github.event.number }} --json user.login --template '{{json user.login}}')
+          gh pr edit ${{ github.event.number }} --add-assignees $PR_CREATOR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
