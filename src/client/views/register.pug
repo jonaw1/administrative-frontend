@@ -15,7 +15,7 @@ block content
             .form-group.mb-4
                 label(for="passwordInput2") Passwort wiederholen 
                     span.text-danger *
-                input#passwordInput2.form-control(type="password", placeholder="Passwort eingeben", aria-describedby="forgotPassword", required)
+                input#passwordInput2.form-control(type="password", placeholder="Passwort eingeben", aria-describedby="forgotPassword", name="passwordRepeat", required)
             button.btn.btn-primary.w-50.mb-1(type="submit") Registrieren
             p Sie haben bereits einen Account? 
                 a(href="/login") Anmelden
