@@ -1,18 +1,18 @@
-import express, { Request, Response, NextFunction } from "express";
-import bodyParser from "body-parser";
-import path from "path";
-import indexRoute from "./routes/indexRoute";
-import authRoutes from "./routes/authRoutes";
-import adminRoutes from "./routes/adminRoutes";
-import session from "express-session";
-import { startDatabase } from "./db/database";
-const KnexSessionStore = require("connect-session-knex")(session);
-import { db } from "./db/database";
-import flash from "connect-flash";
-import { User } from "./shared/types";
-import dotenv from "dotenv";
+import express, { Request, Response, NextFunction } from 'express';
+import bodyParser from 'body-parser';
+import path from 'path';
+import indexRoute from './routes/indexRoute';
+import authRoutes from './routes/authRoutes';
+import adminRoutes from './routes/adminRoutes';
+import session from 'express-session';
+import { startDatabase } from './db/database';
+const KnexSessionStore = require('connect-session-knex')(session);
+import { db } from './db/database';
+import flash from 'connect-flash';
+import { User } from './shared/types';
+import dotenv from 'dotenv';
 
-declare module "express" {
+declare module 'express' {
   interface Request {
     user?: User;
   }
@@ -29,39 +29,39 @@ app.use(
   session({
     store: new KnexSessionStore({
       knex: db,
-      tablename: "sessions",
-      createtable: true,
+      tablename: 'sessions',
+      createtable: true
     }),
-    secret: process.env.SESSION_SECRET ?? "your-session-secret",
+    secret: process.env.SESSION_SECRET ?? 'your-session-secret',
     resave: true,
-    saveUninitialized: false,
+    saveUninitialized: false
   })
 );
 app.use(flash());
 
 // Pug
-app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "..", "client", "views"));
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, '..', 'client', 'views'));
 
 // Serve static files from the "assets" directory
-app.use(express.static(path.join(__dirname, "..", "client", "assets")));
+app.use(express.static(path.join(__dirname, '..', 'client', 'assets')));
 
 // Send session information to all routes
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.locals.success = req.flash("success")[0];
-  res.locals.error = req.flash("error")[0];
+  res.locals.success = req.flash('success')[0];
+  res.locals.error = req.flash('error')[0];
   res.locals.user = req.session?.user;
   next();
 });
 
-app.use("/", indexRoute);
-app.use("/", authRoutes);
-app.use("/", adminRoutes);
+app.use('/', indexRoute);
+app.use('/', authRoutes);
+app.use('/', adminRoutes);
 
 // Error handling middleware
-app.use((err: Error, req: Request, res: Response, next: NextFunction): void => {
-  console.error("Error:", err.stack);
-  res.status(500).send("Something broke!");
+app.use((err: Error, req: Request, res: Response): void => {
+  console.error('Error:', err.stack);
+  res.status(500).send('Something broke!');
 });
 
 startDatabase().then(() => {
