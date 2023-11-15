@@ -14,3 +14,67 @@ const toggleProfileForm = () => {
     star.hidden = disabled ? false : true;
   }
 };
+
+const validateRegister = () => {
+  const passwordInput1 = document.getElementById("passwordInput1");
+  const passwordInput2 = document.getElementById("passwordInput2");
+  const registerForm = document.getElementById("registerForm");
+  const password1InvalidFeedback = document.getElementById(
+    "password1InvalidFeedback"
+  );
+  const password2InvalidFeedback = document.getElementById(
+    "password2InvalidFeedback"
+  );
+
+  passwordInput1.addEventListener("keyup", (event) => {
+    const password1 = passwordInput1.value;
+    const password2 = passwordInput2.value;
+    if (
+      password1.length < 8 ||
+      !/[A-Z]/.test(password1) ||
+      !/[a-z]/.test(password1) ||
+      !/\d/.test(password1)
+    ) {
+      password1InvalidFeedback.style.display = "inline-block";
+      passwordInput1.classList.add("is-invalid");
+    } else {
+      password1InvalidFeedback.style.display = "none";
+      passwordInput1.classList.remove("is-invalid");
+      passwordInput1.classList.add("is-valid");
+    }
+
+    if (password1 !== password2) {
+      password2InvalidFeedback.style.display = "inline-block";
+      passwordInput2.classList.add("is-invalid");
+    } else {
+      password2InvalidFeedback.style.display = "none";
+      passwordInput2.classList.remove("is-invalid");
+      passwordInput2.classList.add("is-valid");
+    }
+  });
+
+  passwordInput2.addEventListener("keyup", (event) => {
+    const password1 = passwordInput1.value;
+    const password2 = passwordInput2.value;
+    if (password1 !== password2) {
+      password2InvalidFeedback.style.display = "inline-block";
+      passwordInput2.classList.add("is-invalid");
+    } else {
+      password2InvalidFeedback.style.display = "none";
+      passwordInput2.classList.remove("is-invalid");
+      passwordInput2.classList.add("is-valid");
+    }
+  });
+
+  registerForm.addEventListener("submit", (event) => {
+    const invalidFeedbacks = document.getElementsByClassName("invalid-feedb");
+    const isInvalid = Array.from(invalidFeedbacks).some((element) => {
+      return element.style.display === "inline-block";
+    });
+    if (isInvalid) {
+      event.preventDefault();
+    }
+  });
+};
+
+validateRegister();
