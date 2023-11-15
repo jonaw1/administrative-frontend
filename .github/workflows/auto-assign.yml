@@ -15,7 +15,7 @@ jobs:
 
       - name: Set Assignee
         run: |
-          PR_CREATOR=$(gh pr view ${{ github.event.number }} --json user.login --template '{{json user.login}}')
+          PR_CREATOR=$(gh pr view 7 --json author.login --template '{{json author.login}}')
           gh pr edit ${{ github.event.number }} --add-assignees $PR_CREATOR
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
