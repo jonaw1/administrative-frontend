@@ -3,8 +3,8 @@
 ## To-Do
 - [ ] Send Email on register and forgot pw
 - [ ] Make forgot pw work
-- [ ] make sure passwords are identical on register
-- [ ] make sure passwords fulfill criteria
+- [X] make sure passwords are identical on register
+- [X] make sure passwords fulfill criteria
 - [ ] send email on change email
 - [ ] make delete profile work
 - [ ] make change and delete user work
