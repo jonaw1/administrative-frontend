@@ -10,7 +10,8 @@
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server/server.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +19,7 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "connect-flash": "^0.1.1",
-    "connect-session-knex": "^3.0.1",
+    "connect-session-knex": "^4.0.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
@@ -38,6 +39,7 @@
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
+    "husky": "^8.0.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.1.0",
     "ts-node": "^10.9.1",
