@@ -16,7 +16,7 @@ block content
             .form-group.mb-4
                 label(for="passwordInput2") Passwort wiederholen 
                     span.text-danger *
-                input#passwordInput2.form-control(type="password", placeholder="Passwort eingeben", aria-describedby="forgotPassword", autocomplete="new-password", required)
+                input#passwordInput2.form-control(type="password", name="passwordRepeat", placeholder="Passwort eingeben", aria-describedby="forgotPassword", autocomplete="new-password", required)
                 #password2InvalidFeedback.small.text-danger.invalid-feedb Passwörter stimmen nicht überein.
             button#registerSubmitBtn.btn.btn-primary.w-50.mb-1(type="submit") Registrieren
             p Sie haben bereits einen Account? 

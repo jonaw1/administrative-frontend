@@ -68,7 +68,7 @@ router.post(
   "/register",
   requireNotAuthenticated,
   async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const { email, password, passwordRepeat } = req.body;
 
     const emailAlreadyRegistered = await db("credentials")
       .select()
@@ -91,6 +91,24 @@ router.post(
 
     if (!user) {
       console.log(`Email<${email}> not allowed to register`);
+      return res.redirect("/register");
+    }
+
+    const passwordsMatch = password === passwordRepeat;
+    
+    if (!passwordsMatch) {
+      console.log(`Passwords do not match`);
+      req.flash("error", "Passwörter stimmen nicht überein!");
+      return res.redirect("/register");
+    }
+
+    //Password requires min 8 characters and atleast one number, lower case letter and upper case letter
+    var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    const passwordConditions = re.test(password);
+
+    if (!passwordConditions) {
+      console.log(`Password does not fullfill conditions`);
+      req.flash("error", "Das Passwort muss mindestens 8 Zeichen lang sein und eine Zahl, einen Kleinbuchstaben und einen Großbuchstaben enthalten!");
       return res.redirect("/register");
     }
 
