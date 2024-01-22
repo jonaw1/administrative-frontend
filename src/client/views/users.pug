@@ -1,0 +1,68 @@
+extends base-template.pug 
+
+block content 
+    .container
+        button.btn.btn-primary.mb-3(data-bs-toggle="modal", data-bs-target="#addUserModal") Nutzer hinzufügen
+        table.table
+            thead
+                tr 
+                    th(scope="col") ID 
+                    th(scope="col") Vorname
+                    th(scope="col") Nachname
+                    th(scope="col") Email 
+                    th(scope="col") Rolle
+                    th(scope="col") Status
+                    th(scope="col") Aktionen
+            tbody 
+                each usr in users
+                    tr 
+                        th.align-middle(scope="row") #{usr.user_id}
+                        td.align-middle #{usr.first_name}
+                        td.align-middle #{usr.last_name}
+                        td.align-middle #{usr.email}
+                        td.align-middle= usr.admin ? "Administrator" : "Nutzer"
+                        if usr.active 
+                            td.align-middle.text-success Aktiviert 
+                        else 
+                            td.align-middle.text-danger Inaktiv
+                        td.align-middle 
+                            span 
+                                button.btn.btn-sm.btn-secondary.me-2 Ändern
+                                button.btn.btn-sm.btn-danger(data-bs-toggle="modal", data-bs-target="#deleteUserModal", data-user-email=usr.email) Löschen
+    #addUserModal.modal.fade(tabindex="-1", aria-labelledby="addUserLabel", aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5#addUserLabel.modal-title Nutzer hinzufügen
+                    button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                form(action="/users", method="post")
+                    .modal-body
+                        .form-group.mb-2
+                            label(for="emailInput") Email 
+                                span.text-danger *
+                            input#emailInput.form-control(type="email", placeholder="Email eingeben", name="email", required)
+                        .form-group.mb-2
+                            label(for="roleSelect") Rolle  
+                                span.text-danger *
+                            select#roleSelect.form-select(name="admin", required)
+                                option(selected, value="0") Nutzer
+                                option(value="1") Administrator
+                    .modal-footer
+                        button.btn.btn-primary(type="submit") Hinzufügen
+                        button.btn.btn-secondary(type="button", data-bs-dismiss="modal") Schließen
+    #deleteUserModal.modal.fade(tabindex="-1", aria-labelledby="deleteUserLabel", aria-hidden="true")
+        .modal-dialog
+            .modal-content
+                .modal-header
+                    h5#deleteUserLabel.modal-title Nutzer löschen
+                    button.btn-close(type="button", data-bs-dismiss="modal", aria-label="Close")
+                form(action="/users", method="post")
+                    .modal-body
+                        label(for="deleteConfirmInput") Bitte bestätigen Sie das Löschen des Nutzers, indem Sie die Email-Adresse 
+                            span.fw-bold 
+                            span eingeben 
+                            span.text-danger *
+                        input#deleteConfirmInput.form-control(type="email", placeholder="Email eingeben", required)
+                    .modal-footer
+                        button.btn.btn-danger(type="submit") Löschen
+                        button.btn.btn-secondary(type="button", data-bs-dismiss="modal") Schließen

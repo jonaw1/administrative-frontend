@@ -1,0 +1,31 @@
+extends base-template.pug 
+
+block content 
+    .container
+        form#registerForm(action="/register", method="post")
+            h1.mb-3 Willkommen!
+            .form-group.mb-3
+                label(for="emailInput") Email 
+                    span.text-danger *
+                input#emailInput.form-control(type="email", placeholder="Email eingeben", name="email", autocomplete="email", required)
+            .form-group.mb-3 
+                label(for="firstNameInput") Vorname 
+                    span.text-danger *
+                input#firstNameInput.form-control(type="text", placeholder="Vorname eingeben", name="firstName", autocomplete="given-name", required)
+            .form-group.mb-3 
+                label(for="firstNameInput") Nachname
+                    span.text-danger *
+                input#firstNameInput.form-control(type="text", placeholder="Nachname eingeben", name="lastName", autocomplete="family-name", required)
+            .form-group.mb-3
+                label(for="passwordInput1") Passwort 
+                    span.text-danger *
+                input#passwordInput1.form-control(type="password", placeholder="Passwort eingeben", aria-describedby="forgotPassword", name="password", autocomplete="new-password", required)
+                #password1InvalidFeedback.small.text-danger.invalid-feedb Passwort muss mindestens 8 Zeichen lang sein und mindestens 1 Großbuchstaben, 1 Kleinbuchstaben und 1 Zahl beinhalten.
+            .form-group.mb-4
+                label(for="passwordInput2") Passwort wiederholen 
+                    span.text-danger *
+                input#passwordInput2.form-control(type="password", name="passwordRepeat", placeholder="Passwort eingeben", aria-describedby="forgotPassword", autocomplete="new-password", required)
+                #password2InvalidFeedback.small.text-danger.invalid-feedb Passwörter stimmen nicht überein.
+            button#registerSubmitBtn.btn.btn-primary.w-50.mb-1(type="submit") Registrieren
+            p Sie haben bereits einen Account? 
+                a(href="/login") Anmelden

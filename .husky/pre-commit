@@ -1,0 +1,10 @@
+#!/bin/bash
+
+npm run lint
+
+if [ $? -ne 0 ]; then
+    echo "ESLint check failed. Please fix the issues before committing."
+    exit 1
+fi
+
+exit 0
